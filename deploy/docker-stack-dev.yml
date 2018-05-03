@@ -13,10 +13,11 @@ services:
       - .env.dev
     networks:
       - traefik
+      - backend
     deploy:
       labels:
         traefik.port: '7770'
-        traefik.backend: 'solenya_api'
+        traefik.backend: 'solenya_dev'
         traefik.docker.network: 'traefik'
         traefik.frontend.rule: 'Host:solenya-api-dev.chas.school'
   database:
@@ -26,13 +27,16 @@ services:
     env_file:
       - .env.dev
     networks:
-      - traefik
+      - backend
     deploy:
       labels:
-        traefik.docker.network: traefik
+        traefik.enable: 'false'
+
 volumes:
   database:
 
 networks:
   traefik:
     external: true
+  backend:
+    external: false

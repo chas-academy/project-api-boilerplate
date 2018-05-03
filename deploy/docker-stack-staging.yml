@@ -13,6 +13,7 @@ services:
       - .env.staging
     networks:
       - traefik
+      - backend
     deploy:
       labels:
         traefik.port: '7770'
@@ -26,13 +27,15 @@ services:
     env_file:
       - .env.staging
     networks:
-      - traefik
+      - backend
     deploy:
       labels:
-        traefik.docker.network: traefik
+        traefik.enable: 'false'
 volumes:
   database:
 
 networks:
   traefik:
     external: true
+  backend:
+    external: false
