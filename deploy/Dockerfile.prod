@@ -17,9 +17,6 @@ FROM mhart/alpine-node:10.0.0
 
 ENV NODE_ENV=production
 
-RUN addgroup -g 1000 -S node && \
-    adduser -u 1000 -S node -G node
-
 WORKDIR /app
 
 COPY --from=builder /node_modules /node_modules

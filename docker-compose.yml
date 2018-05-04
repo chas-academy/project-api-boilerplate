@@ -1,28 +1,29 @@
-version: '3.0'
+version: '3.5'
 services:
-  API_CONTAINER_NAME:
-    container_name: API_CONTAINER_NAME
+  solenya_express_api:
+    container_name: solenya_express_api
     build: .
     image: solenya_express_api
     user: node
     working_dir: /home/node/app
-    labels:
-      traefik.enable: "true"
-      traefik.frontend.rule: "Host:TRAEFIK_ENV.chas.school"
     volumes:
       - ./:/home/node/app
     environment:
-      - POSTGRES_HOST=DB_CONTAINER_NAME
+      - POSTGRES_HOST=solenya_database
     depends_on:
-      - DB_CONTAINER_NAME
+      - solenya_database
     env_file:
       - .env
-  DB_CONTAINER_NAME:
-    container_name: DB_CONTAINER_NAME
-    image: onjin/alpine-postgres:9.6
+    ports:
+      - 7770:7770
+  solenya_database:
+    container_name: solenya_postgres_db
+    image: postgres:9.6
     volumes:
-      - DB_CONTAINER_NAME:/var/lib/postgresql/data
+      - solenya_database:/var/lib/postgresql/data
     env_file:
       - .env
+    ports:
+      - 5432:5432
 volumes:
-  DB_CONTAINER_NAME:
+  solenya_database:
