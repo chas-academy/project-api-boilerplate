@@ -1,7 +1,9 @@
+import path from 'path';
+import fs from 'fs';
+import dotenv from 'dotenv';
+
 if (!process.env.PG_DB) {
-  const fs = require('fs');
-  const dotenv = require('dotenv');
-  const envConfig = dotenv.parse(fs.readFileSync('.env'));
+  const envConfig = dotenv.parse(fs.readFileSync(path.resolve(__dirname, '../../deploy/.env')));
 
   for (let k in envConfig) {
     process.env[k] = envConfig[k];
