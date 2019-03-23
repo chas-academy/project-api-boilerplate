@@ -2,9 +2,10 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import routes from './routes'
+import path from 'path';
 
 if (!process.env.PORT) {
-  require('dotenv').config()
+  require('dotenv').config({ path: path.resolve(__dirname, '../deploy') })
 }
 
 if (!process.env.PORT) {

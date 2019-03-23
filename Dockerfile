@@ -3,15 +3,14 @@ FROM mhart/alpine-node:10.0.0 as builder
 ENV NODE_PATH=/node_modules
 ENV PATH=$PATH:/node_modules/.bin
 
-ADD yarn.lock /yarn.lock
 ADD package.json /package.json
 
-RUN yarn --ignore-engines
+RUN npm install
 
 WORKDIR /app
 ADD . /app
 
-RUN yarn run build
+RUN npm run build
 
 FROM mhart/alpine-node:10.0.0
 
